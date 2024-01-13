@@ -1,31 +1,57 @@
-// Funciones
-function calcularCuotas(opcion) {
-    const capital = opciones[opcion - 1].capital;
-    const cuotas = opciones[opcion - 1].cuotas;
-    const interes = 0.2;
-    const subtotal1 = capital * interes;
-    const subtotal2 = capital + subtotal1;
-    const cuotaMensual = subtotal2 / cuotas;
-    alert(`Pagarás ${cuotaMensual.toFixed(2)} mensuales`);
-}
+document.addEventListener("DOMContentLoaded", function () {
 
-// Variables
-const opciones = [
-    { capital: 1500, cuotas: 3 },
-    { capital: 3000, cuotas: 6 },
-    { capital: 4500, cuotas: 9 },
-    { capital: 6000, cuotas: 12 }
-];
+    const opcionesGuardadas = obtenerDelStorage("opciones");
+    const opciones = opcionesGuardadas ? JSON.parse(opcionesGuardadas) : [];
 
-let opcion = parseFloat(prompt("Elija una opción:\n1-$1,500 en 3 cuotas\n2-$3,000 en 6 cuotas\n3-$4500 en 9 cuotas\n4-$6000 en 12 cuotas\n5-Salir"));
+    document.getElementById("botonSimular").addEventListener("click", function () {
+        console.log("Botón clickeado");
+        const opcionInput = document.getElementById("opcionInput");
+        const opcionSeleccionada = parseInt(opcionInput.value);
+        simularCuotas(opcionSeleccionada, opciones);
 
-while (opcion !== 5) {
-    if (opcion >= 1 && opcion <= opciones.length) {
-        calcularCuotas(opcion);
+        guardarEnStorage("opciones", JSON.stringify(opciones));
+    });
+});
+
+function simularCuotas(opcion, opciones) {
+    const opcionSeleccionada = opciones.find((_, index) => index + 1 === opcion);
+    if (opcionSeleccionada) {
+        const { capital, cuotas } = opcionSeleccionada;
+        const interes = 0.2;
+        const subtotal1 = capital * interes;
+        const subtotal2 = capital + subtotal1;
+        const cuotaMensual = (subtotal2 / cuotas).toFixed(2);
+        console.log("Cuota Mensual:", cuotaMensual);
+        actualizarDOM(cuotaMensual);
     } else {
         alert("Opción incorrecta");
     }
-    opcion = parseFloat(prompt("Elija una opción:\n1-$1,500 en 3 cuotas\n2-$3,000 en 6 cuotas\n3-$4500 en 9 cuotas\n4-$6000 en 12 cuotas\n5-Salir"));
 }
 
-alert("Finalizando programa. Presiona Enter para cerrar");
+
+function simularCuotas(opcion, opciones) {
+    const opcionSeleccionada = opciones.find((_, index) => index + 1 === opcion);
+    if (opcionSeleccionada) {
+        const { capital, cuotas } = opcionSeleccionada;
+        const interes = 0.2;
+        const subtotal1 = capital * interes;
+        const subtotal2 = capital + subtotal1;
+        const cuotaMensual = (subtotal2 / cuotas).toFixed(2);
+        actualizarDOM(cuotaMensual);
+    } else {
+        alert("Opción incorrecta");
+    }
+}
+
+function actualizarDOM(resultado) {
+    const elementoResultado = document.getElementById("resultadoCuotas");
+    elementoResultado.innerHTML = `Pagarás ${resultado} mensuales`;
+}
+
+function guardarEnStorage(clave, valor) {
+    localStorage.setItem(clave, valor);
+}
+
+function obtenerDelStorage(clave) {
+    return localStorage.getItem(clave);
+}

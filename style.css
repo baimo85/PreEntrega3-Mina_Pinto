@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: whitesmoke;
+    color: gray;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 50px;
+    height: 100vh;
+    margin: 200px;
+  }
+  
+  .container {
+    width: 100%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  header {
+    background-color: lightblue;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  select, button {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 150px; 
+    display: block;
+    width: 100%;
+  }
+  
+  button {
+    margin-top: -100px;
+    background-color: midnightblue;
+    color: white; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: blue;
+  }
+  
+  #resultadoCuotas {
+    text-align: center;
+    font-size: 18px;
+    margin-top: -100px;
+    color: black;
+  }
+  
